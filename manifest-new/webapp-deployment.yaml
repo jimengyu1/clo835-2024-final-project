@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: final
+  name: webapp-deployment
+  labels:
+    app: employees
+    component: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employees
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: employees
+        component: frontend
+    spec:
+      serviceAccountName: clo835  # Assign the created ServiceAccount
+      containers:
+        - name: group1-webapp-container
+          image: 034644060220.dkr.ecr.us-east-1.amazonaws.com/group1-images-repo:group1-webapp-image-v1.0
+          ports:
+            - containerPort: 81
+          env:
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: group1-webapp-configmap
+                  key: DB_HOST
+            - name: DBPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: group1-webapp-configmap
+                  key: DB_PORT
+            - name: GROUP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: group1-webapp-configmap
+                  key: GROUP_NAME
+            - name: IMAGE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: group1-webapp-configmap
+                  key: IMAGE_URL
+            - name: DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_User
+            - name: DBPWD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_Password
+            - name: DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_Database

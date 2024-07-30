@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: final
+  name: webapp-service
+  labels:
+    app: employees
+    component: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80          # Service的端口
+    targetPort: 81    # Pod中容器的端口
+  selector:
+    app: employees
+    component: frontend
+    
+    
