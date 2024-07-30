@@ -7,4 +7,4 @@ data:
   DB_HOST: "mysql-service.final.svc.cluster.local"
   DB_PORT: "3306"
   GROUP_NAME: "Group1"
-  IMAGE_URL: https://group1-s3-finalproject-images.s3.amazonaws.com/backgroupimage.jpg
+  IMAGE_URL: https://group1-s3-finalproject-images.s3.amazonaws.com/replace-backgroundimage.jpg
