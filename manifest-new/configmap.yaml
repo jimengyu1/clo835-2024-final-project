@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: group1-webapp-configmap
+  namespace: final
+data:
+  IMAGE_URL: https://group1-s3-finalproject-images.s3.amazonaws.com/backgroupimage.jpg

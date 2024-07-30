@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: final
+  name: mysql-deployment
+  labels:
+    app: mysql
+    component: backend
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+      component: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+        component: backend
+    spec:
+      serviceAccountName: clo835  # Assign the created ServiceAccount
+      containers:
+      - name: group1-mysql-container
+        image: 034644060220.dkr.ecr.us-east-1.amazonaws.com/group1-images-repo:group1-mysql-image-v1.0
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: DB_Password  # Fix the key reference
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: DB_Database  # Fix the key reference
+        volumeMounts:
+          - name: volume-mysql-group1
+            mountPath: /var/lib/mysql
+        ports:
+          - containerPort: 3306
+            protocol: TCP
+      volumes:
+        - name: volume-mysql-group1
+          persistentVolumeClaim:
+            claimName: group1-mysqldb-pvc
