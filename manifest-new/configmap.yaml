@@ -6,5 +6,5 @@ metadata:
 data:
   DB_HOST: "mysql-service.final.svc.cluster.local"
   DB_PORT: "3306"
-  GROUP_NAME: "Group1"
+  GROUP_NAME: "Group1:jimeng yu,peng li, gong chen"
   IMAGE_URL: "https://group1-s3-finalproject-images.s3.amazonaws.com/replace-backgroundimage.jpg"
